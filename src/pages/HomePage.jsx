@@ -1,4 +1,5 @@
 import { useEffect } from 'react'
+import { Link } from 'react-router-dom'
 import AIToolCard from '../components/AIToolCard'
 import { aiCaseStudies } from '../data/aiCaseStudies'
 
@@ -17,6 +18,10 @@ export default function HomePage() {
             <span className="hero-study-count" aria-label="Five documented tools">05</span>
           </div>
           <div className="hero-bottom">
+            <Link className="gym-cta-button" to="/gym">
+              View the APEX Athletic gym site
+              <span aria-hidden="true">→</span>
+            </Link>
             <p>
               A documented comparison of what five AI website builders produced on their first attempt—and how focused correction prompts improved the result.
             </p>
