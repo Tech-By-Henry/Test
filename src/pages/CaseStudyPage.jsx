@@ -7,6 +7,7 @@ import { ArrowIcon, CheckIcon, ExternalIcon } from '../components/Icons'
 import ProblemsList from '../components/ProblemsList'
 import PromptDisplay from '../components/PromptDisplay'
 import ScreenshotCard from '../components/ScreenshotCard'
+import WebsitePreview from '../components/WebsitePreview'
 import SectionContainer from '../components/SectionContainer'
 import ToolMark from '../components/ToolMark'
 import { caseStudySections, getCaseStudy } from '../data/aiCaseStudies'
@@ -147,6 +148,9 @@ export default function CaseStudyPage() {
 
           <SectionContainer id="corrected-output" number={sectionNumber('corrected-output')} eyebrow="Generated result · Version 02" title="Corrected Output" intro="The result produced after the evidence-led correction prompt. The generated page remains the place for desktop and iPhone 14 viewing.">
             <OutputSummary output={study.correctedOutput} corrected />
+            <div className="post-correction-preview">
+              <WebsitePreview url={study.correctedOutput.previewUrl} title={`${study.name} corrected ${study.title}`} />
+            </div>
           </SectionContainer>
 
           <SectionContainer id="corrected-desktop" number={sectionNumber('corrected-desktop')} eyebrow="Evidence · Desktop" title="Corrected Desktop Screenshot">
