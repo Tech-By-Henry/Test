@@ -63,10 +63,6 @@ svg { display: block; }
 .hero-bottom p { grid-column: 2; margin: 0; color: #4f504c; font-size: 1.02rem; line-height: 1.75; }
 .text-link { justify-self: end; padding-bottom: 5px; border-bottom: 1px solid var(--ink); font-size: .8rem; font-weight: 700; }
 .text-link span { margin-left: 20px; }
-.gym-cta-button { grid-column: 1; align-self: end; justify-self: start; display: inline-flex; align-items: center; gap: 14px; min-height: 50px; padding: 0 22px; border-radius: 4px; background: var(--ink); color: var(--paper); font-size: .78rem; font-weight: 700; letter-spacing: .04em; transition: background .18s ease, transform .18s ease; }
-.gym-cta-button span { color: var(--orange); font-size: 1rem; transition: transform .18s ease; }
-.gym-cta-button:hover { background: #000; transform: translateY(-2px); }
-.gym-cta-button:hover span { transform: translateX(4px); }
 
 .study-overview { padding: 100px 0; background: #1e211e; color: white; }
 .overview-grid { display: grid; grid-template-columns: 170px 1fr 250px; gap: 60px; }
