@@ -94,16 +94,8 @@ export default function CaseStudyPage() {
       <div className="container case-layout">
         <aside className="case-sidebar"><FloatingSectionNav sections={sections} /></aside>
         <div className="case-content">
-          <SectionContainer id="preview" number={sectionNumber('preview')} eyebrow="Project record" title="Website Preview" intro="A quick profile of the website generated for this study.">
-            <div className="preview-stage">
-              <ScreenshotCard
-                src={study.screenshots.firstDesktop}
-                alt={`${study.name} first website output preview`}
-                placeholder="Website preview will be added here"
-                caption={study.title}
-                screenSize={study.screenSizes.desktop}
-              />
-            </div>
+          <SectionContainer id="preview" number={sectionNumber('preview')} eyebrow="Project record" title="Generated Website" intro="The model card opens the generated page first. Use the button below if you need to return to the live page from this analysis record.">
+            <Link className="button button--dark analysis-open-site" to={`/site/${study.slug}`}>Open generated page <ExternalIcon /></Link>
             <dl className="project-facts">
               <div><dt>Website title</dt><dd>{study.title}</dd></div>
               <div><dt>Category</dt><dd>{study.category}</dd></div>
@@ -145,7 +137,7 @@ export default function CaseStudyPage() {
             </div>
           </SectionContainer>
 
-          <SectionContainer id="problems" number={sectionNumber('problems')} eyebrow="Critical review" title="Problems Found" intro={`${study.problems.length} issues were identified in the first output and organized by impact.`} className="case-section--problems">
+          <SectionContainer id="problems" number={sectionNumber('problems')} eyebrow="Critical review" title="Owner Observations" intro="No default scores or dummy findings are shown here. Add only the observations supplied after reviewing the generated page." className="case-section--problems">
             <ProblemsList problems={study.problems} />
           </SectionContainer>
 
@@ -153,7 +145,7 @@ export default function CaseStudyPage() {
             <PromptDisplay prompt={study.correctionPrompt} label="Correction input" />
           </SectionContainer>
 
-          <SectionContainer id="corrected-output" number={sectionNumber('corrected-output')} eyebrow="Generated result · Version 02" title="Corrected Output" intro="The result produced after the evidence-led correction prompt.">
+          <SectionContainer id="corrected-output" number={sectionNumber('corrected-output')} eyebrow="Generated result · Version 02" title="Corrected Output" intro="The result produced after the evidence-led correction prompt. The generated page remains the place for desktop and iPhone 14 viewing.">
             <OutputSummary output={study.correctedOutput} corrected />
           </SectionContainer>
 
