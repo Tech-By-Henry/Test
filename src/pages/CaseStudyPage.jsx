@@ -7,6 +7,7 @@ import { ArrowIcon, CheckIcon, ExternalIcon } from '../components/Icons'
 import ProblemsList from '../components/ProblemsList'
 import PromptDisplay from '../components/PromptDisplay'
 import ScreenshotCard from '../components/ScreenshotCard'
+import WebsitePreview from '../components/WebsitePreview'
 import SectionContainer from '../components/SectionContainer'
 import ToolMark from '../components/ToolMark'
 import { caseStudySections, getCaseStudy } from '../data/aiCaseStudies'
@@ -94,16 +95,8 @@ export default function CaseStudyPage() {
       <div className="container case-layout">
         <aside className="case-sidebar"><FloatingSectionNav sections={sections} /></aside>
         <div className="case-content">
-          <SectionContainer id="preview" number={sectionNumber('preview')} eyebrow="Project record" title="Website Preview" intro="A quick profile of the website generated for this study.">
-            <div className="preview-stage">
-              <ScreenshotCard
-                src={study.screenshots.firstDesktop}
-                alt={`${study.name} first website output preview`}
-                placeholder="Website preview will be added here"
-                caption={study.title}
-                screenSize={study.screenSizes.desktop}
-              />
-            </div>
+          <SectionContainer id="preview" number={sectionNumber('preview')} eyebrow="Project record" title="Website Preview" intro="Open the generated page directly, then toggle between desktop and an iPhone 14-sized mobile frame for review.">
+            <WebsitePreview url={study.firstOutput.previewUrl} title={`${study.name} generated ${study.title}`} />
             <dl className="project-facts">
               <div><dt>Website title</dt><dd>{study.title}</dd></div>
               <div><dt>Category</dt><dd>{study.category}</dd></div>
@@ -145,7 +138,7 @@ export default function CaseStudyPage() {
             </div>
           </SectionContainer>
 
-          <SectionContainer id="problems" number={sectionNumber('problems')} eyebrow="Critical review" title="Problems Found" intro={`${study.problems.length} issues were identified in the first output and organized by impact.`} className="case-section--problems">
+          <SectionContainer id="problems" number={sectionNumber('problems')} eyebrow="Critical review" title="Owner Observations" intro="No default scores or dummy findings are shown here. Add only the observations supplied after reviewing the generated page." className="case-section--problems">
             <ProblemsList problems={study.problems} />
           </SectionContainer>
 
@@ -155,6 +148,9 @@ export default function CaseStudyPage() {
 
           <SectionContainer id="corrected-output" number={sectionNumber('corrected-output')} eyebrow="Generated result · Version 02" title="Corrected Output" intro="The result produced after the evidence-led correction prompt.">
             <OutputSummary output={study.correctedOutput} corrected />
+            <div className="post-correction-preview">
+              <WebsitePreview url={study.correctedOutput.previewUrl} title={`${study.name} corrected ${study.title}`} />
+            </div>
           </SectionContainer>
 
           <SectionContainer id="corrected-desktop" number={sectionNumber('corrected-desktop')} eyebrow="Evidence · Desktop" title="Corrected Desktop Screenshot">

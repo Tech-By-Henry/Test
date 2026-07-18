@@ -4,22 +4,29 @@ export default function useActiveSection(sectionIds) {
   const [activeId, setActiveId] = useState(sectionIds[0])
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const visible = entries
-          .filter((entry) => entry.isIntersecting)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)
-        if (visible[0]) setActiveId(visible[0].target.id)
-      },
-      { rootMargin: '-18% 0px -68% 0px', threshold: [0, 0.1, 0.3] },
-    )
+    const updateActiveSection = () => {
+      const headerOffset = window.matchMedia('(max-width: 860px)').matches ? 132 : 96
+      const currentLine = window.scrollY + headerOffset
+      const sections = sectionIds
+        .map((id) => document.getElementById(id))
+        .filter(Boolean)
 
-    sectionIds.forEach((id) => {
-      const element = document.getElementById(id)
-      if (element) observer.observe(element)
-    })
+      const current = sections.reduce((active, section) => {
+        if (section.offsetTop <= currentLine) return section
+        return active
+      }, sections[0])
 
-    return () => observer.disconnect()
+      if (current) setActiveId(current.id)
+    }
+
+    updateActiveSection()
+    window.addEventListener('scroll', updateActiveSection, { passive: true })
+    window.addEventListener('resize', updateActiveSection)
+
+    return () => {
+      window.removeEventListener('scroll', updateActiveSection)
+      window.removeEventListener('resize', updateActiveSection)
+    }
   }, [sectionIds])
 
   return activeId
