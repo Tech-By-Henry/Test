@@ -4,6 +4,7 @@ import Header from './components/Header'
 import Footer from './components/Footer'
 import HomePage from './pages/HomePage'
 import CaseStudyPage from './pages/CaseStudyPage'
+import GeneratedSitePage from './pages/GeneratedSitePage'
 import NotFoundPage from './pages/NotFoundPage'
 
 function RouteEffects() {
@@ -24,6 +25,7 @@ export default function App() {
       <main id="main-content">
         <Routes>
           <Route path="/" element={<HomePage />} />
+          <Route path="/site/:slug" element={<GeneratedSitePage />} />
           <Route path="/ai/:slug" element={<CaseStudyPage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>

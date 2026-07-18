@@ -13,8 +13,8 @@ export default function AIToolCard({ study, index }) {
         <h2>{study.name}</h2>
         <p>{study.cardDescription}</p>
       </div>
-      <Link className="card-link" to={`/ai/${study.slug}`} aria-label={`View ${study.name} case study`}>
-        <span>View case study</span>
+      <Link className="card-link" to={`/site/${study.slug}`} aria-label={`Open ${study.name} generated page`}>
+        <span>Open generated page</span>
         <ArrowIcon />
       </Link>
     </article>

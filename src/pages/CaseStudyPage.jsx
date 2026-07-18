@@ -95,8 +95,8 @@ export default function CaseStudyPage() {
       <div className="container case-layout">
         <aside className="case-sidebar"><FloatingSectionNav sections={sections} /></aside>
         <div className="case-content">
-          <SectionContainer id="preview" number={sectionNumber('preview')} eyebrow="Project record" title="Website Preview" intro="Open the generated page directly, then toggle between desktop and an iPhone 14-sized mobile frame for review.">
-            <WebsitePreview url={study.firstOutput.previewUrl} title={`${study.name} generated ${study.title}`} />
+          <SectionContainer id="preview" number={sectionNumber('preview')} eyebrow="Project record" title="Generated Website" intro="The model card opens the generated page first. Use the button below if you need to return to the live page from this analysis record.">
+            <Link className="button button--dark analysis-open-site" to={`/site/${study.slug}`}>Open generated page <ExternalIcon /></Link>
             <dl className="project-facts">
               <div><dt>Website title</dt><dd>{study.title}</dd></div>
               <div><dt>Category</dt><dd>{study.category}</dd></div>
@@ -146,7 +146,7 @@ export default function CaseStudyPage() {
             <PromptDisplay prompt={study.correctionPrompt} label="Correction input" />
           </SectionContainer>
 
-          <SectionContainer id="corrected-output" number={sectionNumber('corrected-output')} eyebrow="Generated result · Version 02" title="Corrected Output" intro="The result produced after the evidence-led correction prompt.">
+          <SectionContainer id="corrected-output" number={sectionNumber('corrected-output')} eyebrow="Generated result · Version 02" title="Corrected Output" intro="The result produced after the evidence-led correction prompt. The generated page remains the place for desktop and iPhone 14 viewing.">
             <OutputSummary output={study.correctedOutput} corrected />
             <div className="post-correction-preview">
               <WebsitePreview url={study.correctedOutput.previewUrl} title={`${study.name} corrected ${study.title}`} />
