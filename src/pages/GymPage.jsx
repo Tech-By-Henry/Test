@@ -99,7 +99,7 @@ export default function GymPage() {
             <a href="#coaches">Coaches</a>
             <a href="#membership">Membership</a>
           </nav>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '18px' }}>
+          <div className="apex-topbar-actions">
             <Link className="apex-topbar-back" to="/">← Back to project</Link>
             <a className="apex-btn apex-btn--solid" href="#membership">Join now</a>
           </div>
