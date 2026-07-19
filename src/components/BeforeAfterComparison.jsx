@@ -10,6 +10,7 @@ function OutcomeList({ title, items, positive = false, emptyText = 'Evaluation p
 export default function BeforeAfterComparison({ study }) {
   const { finalComparison } = study
   const hasScore = Number.isFinite(finalComparison.score)
+  const noCorrectionNeeded = finalComparison.correctionRequired === false
 
   return (
     <div className="comparison-wrap">
@@ -19,8 +20,17 @@ export default function BeforeAfterComparison({ study }) {
         <p>{finalComparison.review || 'A final score and comparison will follow after the initial and revised designs have been reviewed.'}</p>
       </div>
       <div className={`outcome-grid ${hasScore ? '' : 'outcome-grid--no-score'}`}>
-        <OutcomeList title="Improvements" items={finalComparison.improvements} positive />
-        <OutcomeList title="Problems fixed" items={finalComparison.fixedProblems} positive />
+        <OutcomeList
+          title={noCorrectionNeeded ? 'What worked' : 'Improvements'}
+          items={noCorrectionNeeded ? finalComparison.strengths : finalComparison.improvements}
+          positive
+        />
+        <OutcomeList
+          title={noCorrectionNeeded ? 'Corrections needed' : 'Problems fixed'}
+          items={finalComparison.fixedProblems}
+          positive={!noCorrectionNeeded}
+          emptyText={noCorrectionNeeded ? 'No corrections were needed.' : undefined}
+        />
         <OutcomeList title="Still remaining" items={finalComparison.remainingProblems} emptyText={hasScore ? 'No remaining problems were identified.' : undefined} />
         {hasScore && (
           <div className="score-card">

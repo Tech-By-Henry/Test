@@ -69,7 +69,11 @@ export default function CaseStudyPage() {
     'corrected-desktop': study.screenshots.correctedDesktop,
     'corrected-mobile': study.screenshots.correctedMobile,
   }
-  const sections = caseStudySections.filter((section) => !(section.id in screenshotAvailability) || Boolean(screenshotAvailability[section.id]))
+  const hasCorrection = Boolean(study.correctionPrompt)
+  const correctionOnlySections = new Set(['correction-prompt', 'corrected-output', 'corrected-desktop', 'corrected-mobile'])
+  const sections = caseStudySections
+    .filter((section) => (!(section.id in screenshotAvailability) || Boolean(screenshotAvailability[section.id])) && (hasCorrection || !correctionOnlySections.has(section.id)))
+    .map((section) => (!hasCorrection && section.id === 'comparison' ? { ...section, label: 'Final Evaluation' } : section))
   const sectionNumber = (id) => String(sections.findIndex((section) => section.id === id) + 1).padStart(2, '0')
 
   return (
@@ -145,17 +149,21 @@ export default function CaseStudyPage() {
             </SectionContainer>
           )}
 
-          <SectionContainer id="problems" number={sectionNumber('problems')} eyebrow="Critical review" title="Owner Observations" intro="The design and usability issues identified during the review." className="case-section--problems">
+          <SectionContainer id="problems" number={sectionNumber('problems')} eyebrow="Critical review" title="Owner Observations" intro={hasCorrection ? 'The design and usability issues identified during the review.' : 'The completed review found no design or usability problems that required correction.'} className="case-section--problems">
             <ProblemsList problems={study.problems} />
           </SectionContainer>
 
-          <SectionContainer id="correction-prompt" number={sectionNumber('correction-prompt')} eyebrow="Input · Version 02" title="Correction Prompt" intro="A focused follow-up prompt written to resolve the observed failures.">
-            <PromptDisplay prompt={study.correctionPrompt} label="Correction input" />
-          </SectionContainer>
+          {hasCorrection && (
+            <>
+              <SectionContainer id="correction-prompt" number={sectionNumber('correction-prompt')} eyebrow="Input · Version 02" title="Correction Prompt" intro="A focused follow-up prompt written to resolve the observed failures.">
+                <PromptDisplay prompt={study.correctionPrompt} label="Correction input" />
+              </SectionContainer>
 
-          <SectionContainer id="corrected-output" number={sectionNumber('corrected-output')} eyebrow="Revised design · Version 02" title="Revised Result" intro="How the website changed after the focused correction request.">
-            <OutputSummary output={study.correctedOutput} corrected />
-          </SectionContainer>
+              <SectionContainer id="corrected-output" number={sectionNumber('corrected-output')} eyebrow="Revised design · Version 02" title="Revised Result" intro="How the website changed after the focused correction request.">
+                <OutputSummary output={study.correctedOutput} corrected />
+              </SectionContainer>
+            </>
+          )}
 
           {study.screenshots.correctedDesktop && (
             <SectionContainer id="corrected-desktop" number={sectionNumber('corrected-desktop')} eyebrow="Evidence · Desktop" title="Corrected Desktop Screenshot">
@@ -181,7 +189,7 @@ export default function CaseStudyPage() {
             </SectionContainer>
           )}
 
-          <SectionContainer id="comparison" number={sectionNumber('comparison')} eyebrow="Evaluation" title="Final Comparison" intro="The first and corrected outputs reviewed side by side.">
+          <SectionContainer id="comparison" number={sectionNumber('comparison')} eyebrow="Evaluation" title={hasCorrection ? 'Final Comparison' : 'Final Evaluation'} intro={hasCorrection ? 'The first and corrected outputs reviewed side by side.' : 'The first result was strong enough to approve without a correction cycle.'}>
             <BeforeAfterComparison study={study} />
           </SectionContainer>
 
