@@ -5,6 +5,7 @@ import Footer from './components/Footer'
 import HomePage from './pages/HomePage'
 import CaseStudyPage from './pages/CaseStudyPage'
 import GeneratedSitePage from './pages/GeneratedSitePage'
+import GymPage from './pages/GymPage'
 import NotFoundPage from './pages/NotFoundPage'
 
 function RouteEffects() {
@@ -18,19 +19,27 @@ function RouteEffects() {
 }
 
 export default function App() {
+  const { pathname } = useLocation()
+  // The gym page is a fully self-contained, immersive layout with its own
+  // header and footer, so we hide the project chrome on that route.
+  const isImmersive = pathname === '/gym' || pathname === '/site/v0' || pathname === '/site/vo'
+
   return (
     <div className="app-shell">
       <RouteEffects />
-      <Header />
+      {!isImmersive && <Header />}
       <main id="main-content">
         <Routes>
           <Route path="/" element={<HomePage />} />
+          <Route path="/site/v0" element={<GymPage />} />
+          <Route path="/site/vo" element={<GymPage />} />
           <Route path="/site/:slug" element={<GeneratedSitePage />} />
           <Route path="/ai/:slug" element={<CaseStudyPage />} />
+          <Route path="/gym" element={<GymPage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </main>
-      <Footer />
+      {!isImmersive && <Footer />}
     </div>
   )
 }

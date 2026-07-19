@@ -13,29 +13,34 @@ const emptyComparison = { improvements: [], fixedProblems: [], remainingProblems
 
 export const aiCaseStudies = [
   {
-    id: 'vo',
-    name: 'VO',
-    shortName: 'VO',
-    slug: 'vo',
-    monogram: 'VO',
+    id: 'v0',
+    name: 'v0 by Vercel',
+    shortName: 'v0',
+    slug: 'v0',
+    monogram: 'v0',
     accent: '#171717',
     description: 'A reviewed AI website build for a modern gym landing page, with emphasis on preserving the desktop quality while rebuilding the mobile layout.',
-    cardDescription: 'Review the VO gym site, open the live page, and document mobile-specific observations after review.',
+    cardDescription: 'Review the v0 gym site, compare its mobile layouts, and document mobile-specific observations after review.',
     ...sharedRequest,
     dateCreated: '18 July 2026',
-    status: 'Awaiting owner observations',
+    status: 'Mobile correction documented',
     originalPrompt: initialGymPrompt,
     firstOutput: {
-      summary: 'VO produced a gym website from the initial prompt. The desktop view is accepted; the mobile review is pending owner observations.',
+      summary: 'v0 produced a gym website from the initial prompt. The desktop view was accepted, while the initial mobile layout needed reconstruction.',
       codeSummary: 'Generated website output to be reviewed through the attached live page instead of duplicate screenshots.',
       notes: 'No default observations are included. Add only the problems supplied after reviewing the live page.',
       previewUrl: '',
     },
-    screenshots: emptyScreenshots,
+    screenshots: {
+      firstDesktop: '',
+      firstMobile: '/images/v0/v0 initial problematic mobile view.png',
+      correctedDesktop: '',
+      correctedMobile: '/images/v0/vo fixed mobile view.png',
+    },
     problems: [],
     correctionPrompt: mobileFixPrompt,
     correctedOutput: {
-      summary: 'The correction request asks VO to reconstruct the mobile layout instead of compressing the desktop layout.',
+      summary: 'The correction request asks v0 to reconstruct the mobile layout instead of compressing the desktop layout.',
       changes: [],
       fixed: 'Post-correction findings will be documented after the corrected mobile and desktop views are reviewed.',
       remainingLimitations: [],
@@ -76,7 +81,7 @@ export const aiCaseStudies = [
   })),
 ]
 
-export const getCaseStudy = (slug) => aiCaseStudies.find((study) => study.slug === slug)
+export const getCaseStudy = (slug) => aiCaseStudies.find((study) => study.slug === slug || (slug === 'vo' && study.slug === 'v0'))
 
 export const caseStudySections = [
   { id: 'preview', label: 'Website Preview' },

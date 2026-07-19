@@ -1,4 +1,5 @@
 import { useEffect } from 'react'
+import { Link } from 'react-router-dom'
 import AIToolCard from '../components/AIToolCard'
 import { aiCaseStudies } from '../data/aiCaseStudies'
 
@@ -17,6 +18,10 @@ export default function HomePage() {
             <span className="hero-study-count" aria-label="Five documented tools">05</span>
           </div>
           <div className="hero-bottom">
+            <Link className="gym-cta-button" to="/gym">
+              View the APEX Athletic gym site
+              <span aria-hidden="true">→</span>
+            </Link>
             <p>
               A documented comparison of what five AI website builders produced on their first attempt—and how focused correction prompts improved the result.
             </p>
@@ -30,7 +35,7 @@ export default function HomePage() {
           <p className="eyebrow">The method</p>
           <div>
             <h2 id="method-title">One brief. Two outputs.<br />A clearer result.</h2>
-            <p>Each case study records the original prompt, first output, problems identified, correction prompt, and final evaluation. The same restaurant brief keeps the comparison focused on how each tool interprets and improves a shared task.</p>
+            <p>Each case study records the original prompt, first output, problems identified, correction prompt, and final evaluation. The same gym brief keeps the comparison focused on how each tool interprets and improves a shared task.</p>
           </div>
           <dl className="overview-stats">
             <div><dt>Tools tested</dt><dd>5</dd></div>
