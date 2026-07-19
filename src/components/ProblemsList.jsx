@@ -1,7 +1,7 @@
 import SeverityBadge from './SeverityBadge'
 
 export default function ProblemsList({ problems }) {
-  if (!problems?.length) return <p className="simple-empty">No documented problems yet.</p>
+  if (!problems?.length) return <p className="simple-empty">No problems have been identified yet.</p>
 
   return (
     <div className="problems-list">

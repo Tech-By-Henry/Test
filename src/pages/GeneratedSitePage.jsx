@@ -52,8 +52,8 @@ function EmptyGeneratedSite({ study }) {
   return (
     <div className="generated-empty">
       <ToolMark study={study} size="large" />
-      <h1>{study.name} generated page is not attached yet.</h1>
-      <p>When that model’s generated website is available, it should live here first. The analysis stays behind the stats button.</p>
+      <h1>{study.name} website review coming soon.</h1>
+      <p>This website experience is not available yet.</p>
     </div>
   )
 }
@@ -64,7 +64,7 @@ export default function GeneratedSitePage() {
   const [viewport, setViewport] = useState('desktop')
 
   useEffect(() => {
-    if (study) document.title = `${study.name} Generated Website · AI Failure and Correction Pairs`
+    if (study) document.title = `${study.name} Website · AI Failure and Correction Pairs`
   }, [study])
 
   if (!study) return <NotFoundPage />
@@ -72,13 +72,13 @@ export default function GeneratedSitePage() {
   return (
     <div className="generated-page" style={{ '--tool-accent': study.accent }}>
       <div className="generated-toolbar">
-        <div className="generated-title"><ToolMark study={study} /><div><span>Generated page</span><strong>{study.name} · {study.title}</strong></div></div>
+        <div className="generated-title"><ToolMark study={study} /><div><span>Website preview</span><strong>{study.name} · {study.title}</strong></div></div>
         <div className="generated-actions">
-          <div className="viewport-toggle" role="group" aria-label="Generated page viewport">
+          <div className="viewport-toggle" role="group" aria-label="Website preview size">
             <button type="button" className={viewport === 'desktop' ? 'is-active' : ''} aria-pressed={viewport === 'desktop'} onClick={() => setViewport('desktop')}><span>Desktop</span><small>1440px wide</small></button>
             <button type="button" className={viewport === 'mobile' ? 'is-active' : ''} aria-pressed={viewport === 'mobile'} onClick={() => setViewport('mobile')}><span>iPhone 14</span><small>390 × 844</small></button>
           </div>
-          <Link className="button button--dark" to={`/ai/${study.slug}`}>View stats / analysis <ArrowIcon /></Link>
+          <Link className="button button--dark" to={`/ai/${study.slug}`}>Read case study <ArrowIcon /></Link>
         </div>
       </div>
       <div className={`generated-stage generated-stage--${viewport}`}>

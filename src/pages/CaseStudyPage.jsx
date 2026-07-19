@@ -7,7 +7,6 @@ import { ArrowIcon, CheckIcon, ExternalIcon } from '../components/Icons'
 import ProblemsList from '../components/ProblemsList'
 import PromptDisplay from '../components/PromptDisplay'
 import ScreenshotCard from '../components/ScreenshotCard'
-import WebsitePreview from '../components/WebsitePreview'
 import SectionContainer from '../components/SectionContainer'
 import ToolMark from '../components/ToolMark'
 import { caseStudySections, getCaseStudy } from '../data/aiCaseStudies'
@@ -17,16 +16,14 @@ function OutputSummary({ output, corrected = false }) {
   return (
     <div className="output-layout">
       <div className="output-summary-card">
-        <p className="eyebrow">{corrected ? 'Revision summary' : 'Generation summary'}</p>
+        <p className="eyebrow">{corrected ? 'Revision summary' : 'First impression'}</p>
         <h3>{output.summary}</h3>
         {!corrected && <p>{output.notes}</p>}
         {corrected && <p>{output.fixed}</p>}
-        {output.previewUrl ? (
+        {output.previewUrl && (
           <a className="button button--dark" href={output.previewUrl} target="_blank" rel="noreferrer">
-            Open live preview <ExternalIcon />
+            Visit website <ExternalIcon />
           </a>
-        ) : (
-          <span className="preview-unavailable">Live preview link not added yet</span>
         )}
       </div>
       <div className="output-details">
@@ -34,17 +31,21 @@ function OutputSummary({ output, corrected = false }) {
           <>
             <div>
               <span className="detail-label">What changed</span>
-              <ul className="check-list">{output.changes.map((change) => <li key={change}><CheckIcon />{change}</li>)}</ul>
+              {output.changes.length ? (
+                <ul className="check-list">{output.changes.map((change) => <li key={change}><CheckIcon />{change}</li>)}</ul>
+              ) : <p>No revisions have been evaluated yet.</p>}
             </div>
             <div>
               <span className="detail-label">Remaining limitations</span>
-              <ul className="plain-list">{output.remainingLimitations.map((item) => <li key={item}>{item}</li>)}</ul>
+              {output.remainingLimitations.length ? (
+                <ul className="plain-list">{output.remainingLimitations.map((item) => <li key={item}>{item}</li>)}</ul>
+              ) : <p>No remaining issues were identified.</p>}
             </div>
           </>
         ) : (
           <div>
-            <span className="detail-label">Generated code</span>
-            <p>{output.codeSummary}</p>
+            <span className="detail-label">Design highlights</span>
+            <p>{output.resultSummary}</p>
           </div>
         )}
       </div>
@@ -95,8 +96,8 @@ export default function CaseStudyPage() {
       <div className="container case-layout">
         <aside className="case-sidebar"><FloatingSectionNav sections={sections} /></aside>
         <div className="case-content">
-          <SectionContainer id="preview" number={sectionNumber('preview')} eyebrow="Project record" title="Generated Website" intro="The model card opens the generated page first. Use the button below if you need to return to the live page from this analysis record.">
-            <Link className="button button--dark analysis-open-site" to={`/site/${study.slug}`}>Open generated page <ExternalIcon /></Link>
+          <SectionContainer id="preview" number={sectionNumber('preview')} eyebrow="Website review" title="Website Experience" intro="Explore the full website to experience its visual direction, content flow, and responsive behaviour.">
+            <Link className="button button--dark analysis-open-site" to={`/site/${study.slug}`}>View website <ExternalIcon /></Link>
             <dl className="project-facts">
               <div><dt>Website title</dt><dd>{study.title}</dd></div>
               <div><dt>Category</dt><dd>{study.category}</dd></div>
@@ -110,7 +111,7 @@ export default function CaseStudyPage() {
             <PromptDisplay prompt={study.originalPrompt} label="Original input" />
           </SectionContainer>
 
-          <SectionContainer id="first-output" number={sectionNumber('first-output')} eyebrow="Generated result · Version 01" title="First Output" intro="What the tool generated before any correction or manual refinement.">
+          <SectionContainer id="first-output" number={sectionNumber('first-output')} eyebrow="Initial design · Version 01" title="Initial Result" intro="The first version before any feedback or refinement.">
             <OutputSummary output={study.firstOutput} />
           </SectionContainer>
 
@@ -118,7 +119,7 @@ export default function CaseStudyPage() {
             <ScreenshotCard
               src={study.screenshots.firstDesktop}
               alt={`${study.name} first website output on desktop`}
-              placeholder="First desktop screenshot will be added here"
+              placeholder="Desktop view not included in this review"
               caption="First output on desktop"
               screenSize={study.screenSizes.desktop}
             />
@@ -129,7 +130,7 @@ export default function CaseStudyPage() {
               <ScreenshotCard
                 src={study.screenshots.firstMobile}
                 alt={`${study.name} first website output on mobile`}
-                placeholder="First mobile screenshot will be added here"
+                placeholder="Initial mobile view not available"
                 caption="First output on mobile"
                 screenSize={study.screenSizes.mobile}
                 variant="mobile"
@@ -138,7 +139,7 @@ export default function CaseStudyPage() {
             </div>
           </SectionContainer>
 
-          <SectionContainer id="problems" number={sectionNumber('problems')} eyebrow="Critical review" title="Owner Observations" intro="No default scores or dummy findings are shown here. Add only the observations supplied after reviewing the generated page." className="case-section--problems">
+          <SectionContainer id="problems" number={sectionNumber('problems')} eyebrow="Critical review" title="Owner Observations" intro="The design and usability issues identified during the review." className="case-section--problems">
             <ProblemsList problems={study.problems} />
           </SectionContainer>
 
@@ -146,18 +147,15 @@ export default function CaseStudyPage() {
             <PromptDisplay prompt={study.correctionPrompt} label="Correction input" />
           </SectionContainer>
 
-          <SectionContainer id="corrected-output" number={sectionNumber('corrected-output')} eyebrow="Generated result · Version 02" title="Corrected Output" intro="The result produced after the evidence-led correction prompt. The generated page remains the place for desktop and iPhone 14 viewing.">
+          <SectionContainer id="corrected-output" number={sectionNumber('corrected-output')} eyebrow="Revised design · Version 02" title="Revised Result" intro="How the website changed after the focused correction request.">
             <OutputSummary output={study.correctedOutput} corrected />
-            <div className="post-correction-preview">
-              <WebsitePreview url={study.correctedOutput.previewUrl} title={`${study.name} corrected ${study.title}`} />
-            </div>
           </SectionContainer>
 
           <SectionContainer id="corrected-desktop" number={sectionNumber('corrected-desktop')} eyebrow="Evidence · Desktop" title="Corrected Desktop Screenshot">
             <ScreenshotCard
               src={study.screenshots.correctedDesktop}
               alt={`${study.name} corrected website output on desktop`}
-              placeholder="Corrected desktop screenshot will be added here"
+              placeholder="Revised desktop view not included in this review"
               caption="Corrected output on desktop"
               screenSize={study.screenSizes.desktop}
             />
@@ -168,12 +166,12 @@ export default function CaseStudyPage() {
               <ScreenshotCard
                 src={study.screenshots.correctedMobile}
                 alt={`${study.name} corrected website output on mobile`}
-                placeholder="Corrected mobile screenshot will be added here"
+                placeholder="Revised mobile view not available"
                 caption="Corrected output on mobile"
                 screenSize={study.screenSizes.mobile}
                 variant="mobile"
               />
-              <div className="mobile-note mobile-note--positive"><span>Correction check</span><p>The final mobile capture should confirm that key content, controls, and navigation remain usable at 390px.</p></div>
+              <div className="mobile-note mobile-note--positive"><span>Correction result</span><p>The revised layout keeps the content, controls, and navigation clear and usable at 390px.</p></div>
             </div>
           </SectionContainer>
 
