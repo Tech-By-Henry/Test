@@ -1,0 +1,225 @@
+.ironhaus-page {
+  --iron-bg: oklch(0.13 0.005 60);
+  --iron-ink: oklch(0.09 0.005 60);
+  --iron-surface: oklch(0.16 0.006 60);
+  --iron-muted-surface: oklch(0.2 0.006 60);
+  --iron-text: oklch(0.96 0.01 80);
+  --iron-muted: oklch(0.62 0.015 70);
+  --iron-ember: oklch(0.72 0.18 45);
+  --iron-border: oklch(0.25 0.008 60);
+  min-height: 100vh;
+  overflow-x: hidden;
+  background: var(--iron-bg);
+  color: var(--iron-text);
+  font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+.ironhaus-page ::selection { background: var(--iron-ember); color: var(--iron-ink); }
+.ironhaus-page h1, .ironhaus-page h2, .ironhaus-page h3, .ironhaus-page p { margin-top: 0; }
+.iron-wrap { width: min(1600px, calc(100% - 48px)); margin-inline: auto; }
+.iron-icon { width: 24px; height: 24px; flex: 0 0 auto; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.iron-hairline { margin: 0; font: 500 .7rem/1.4 'JetBrains Mono', ui-monospace, monospace; letter-spacing: .28em; text-transform: uppercase; }
+.iron-muted { color: var(--iron-muted); }
+.iron-ember-text { color: var(--iron-ember); }
+
+.iron-nav { position: fixed; z-index: 50; inset: 0 0 auto; border-bottom: 1px solid color-mix(in srgb, var(--iron-border) 40%, transparent); background: color-mix(in srgb, var(--iron-bg) 60%, transparent); backdrop-filter: blur(12px); }
+.iron-nav-inner { height: 64px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+.iron-logo { display: inline-flex; align-items: center; gap: 9px; font: 400 1.25rem/1 'Anton', Impact, sans-serif; letter-spacing: -.02em; }
+.iron-logo-mark { width: 28px; height: 28px; display: grid; place-items: center; background: var(--iron-ember); color: var(--iron-ink); }
+.iron-logo-mark .iron-icon { width: 16px; height: 16px; stroke-width: 2.5; }
+.iron-nav-links { display: none; align-items: center; gap: 32px; }
+.iron-nav-links a { color: var(--iron-text); font: 500 .7rem/1 'JetBrains Mono', monospace; letter-spacing: .28em; text-transform: uppercase; transition: color .18s ease; }
+.iron-nav-links a:hover { color: var(--iron-ember); }
+.iron-button { min-height: 52px; display: inline-flex; align-items: center; justify-content: center; gap: 9px; padding: 0 24px; border: 1px solid var(--iron-ember); background: var(--iron-ember); color: var(--iron-ink); font-size: .72rem; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; transition: background .18s ease, color .18s ease, border-color .18s ease; }
+.iron-button:hover { background: var(--iron-text); border-color: var(--iron-text); }
+.iron-button .iron-icon { width: 16px; height: 16px; stroke-width: 2.5; transition: transform .18s ease; }
+.iron-button:hover .iron-icon { transform: translate(2px, -2px); }
+.iron-button--compact { min-height: 36px; padding-inline: 16px; font-size: .68rem; }
+.iron-button--outline { border-color: var(--iron-border); background: transparent; color: var(--iron-text); }
+.iron-button--outline:hover { border-color: var(--iron-ember); background: transparent; color: var(--iron-ember); }
+
+.iron-hero { position: relative; min-height: 100vh; padding-top: 64px; display: flex; align-items: flex-end; overflow: hidden; isolation: isolate; }
+.iron-hero-image, .iron-hero-shade { position: absolute; inset: 0; }
+.iron-hero-image { z-index: -3; width: 100%; height: 100%; object-fit: cover; object-position: center; }
+.iron-hero-shade { z-index: -2; }
+.iron-hero-shade--vertical { background: linear-gradient(to top, var(--iron-bg), color-mix(in srgb, var(--iron-bg) 50%, transparent), color-mix(in srgb, var(--iron-bg) 30%, transparent)); }
+.iron-hero-shade--horizontal { z-index: -1; background: linear-gradient(to right, color-mix(in srgb, var(--iron-bg) 80%, transparent), transparent 65%); }
+.iron-hero-content { padding-bottom: 64px; }
+.iron-accent-line { display: flex; align-items: center; gap: 12px; margin-bottom: 24px; color: var(--iron-ember); }
+.iron-accent-line::before { content: ''; width: 32px; height: 1px; background: var(--iron-ember); }
+.iron-hero h1 { max-width: 1200px; margin-bottom: 0; font: 400 18vw/.82 'Anton', Impact, sans-serif; letter-spacing: -.02em; text-transform: uppercase; }
+.iron-hero h1 em { color: var(--iron-ember); font-style: normal; }
+.iron-hero-bottom { margin-top: 40px; display: grid; gap: 32px; align-items: end; }
+.iron-hero-bottom > p { max-width: 670px; margin-bottom: 0; color: var(--iron-muted); font-size: 1rem; line-height: 1.65; }
+.iron-hero-actions { display: flex; gap: 12px; }
+.iron-hero-actions .iron-button:first-child { flex: 1; }
+.iron-scroll-rail { position: absolute; right: 40px; top: 50%; display: none; flex-direction: column; align-items: center; gap: 28px; color: var(--iron-text); font: 500 .7rem/1 'JetBrains Mono', monospace; letter-spacing: .28em; text-transform: uppercase; transform: translateY(-50%); }
+.iron-scroll-rail span { writing-mode: vertical-rl; }
+.iron-scroll-rail i { width: 1px; height: 96px; background: var(--iron-border); }
+
+.iron-marquee { overflow: hidden; padding: 24px 0; border-block: 1px solid var(--iron-border); background: var(--iron-ink); }
+.iron-marquee-track { width: max-content; display: flex; gap: 48px; white-space: nowrap; animation: iron-marquee 30s linear infinite; }
+.iron-marquee span { display: inline-flex; align-items: center; gap: 48px; color: color-mix(in srgb, var(--iron-text) 80%, transparent); font: 400 2.25rem/1 'Anton', Impact, sans-serif; text-transform: uppercase; }
+.iron-marquee i { width: 8px; height: 8px; border-radius: 50%; background: var(--iron-ember); }
+@keyframes iron-marquee { to { transform: translateX(-33.333%); } }
+
+.iron-manifesto { padding-block: 96px; display: grid; gap: 32px; }
+.iron-manifesto-aside { margin-top: 24px; }
+.iron-manifesto h2, .iron-section h2, .iron-visit h2 { margin-bottom: 0; font: 400 3rem/.9 'Anton', Impact, sans-serif; letter-spacing: -.02em; text-transform: uppercase; }
+.iron-manifesto h2 span { color: var(--iron-muted); }
+.iron-manifesto > div:last-child > p { max-width: 680px; margin: 40px 0 0; color: var(--iron-muted); font-size: 1.1rem; line-height: 1.7; }
+.iron-manifesto > div:last-child > p + p { margin-top: 24px; }
+
+.iron-section { border-top: 1px solid var(--iron-border); }
+.iron-section--ink { background: var(--iron-ink); }
+.iron-section-inner { padding-block: 80px; }
+.iron-section-heading { margin-bottom: 56px; }
+.iron-section-heading--split { display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; flex-wrap: wrap; }
+.iron-section-heading .iron-hairline { margin-bottom: 16px; }
+.iron-section-heading h2, .iron-coaches-title { font-size: 3rem; }
+.iron-section-heading > p { max-width: 450px; margin: 0; color: var(--iron-muted); line-height: 1.6; }
+
+.iron-discipline-grid { display: grid; gap: 24px; }
+.iron-discipline { overflow: hidden; border: 1px solid var(--iron-border); background: var(--iron-surface); }
+.iron-discipline-image { position: relative; aspect-ratio: 4 / 3; overflow: hidden; }
+.iron-discipline-image img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(1); transition: filter .7s ease, transform .7s ease; }
+.iron-discipline:hover .iron-discipline-image img { filter: grayscale(0); transform: scale(1.05); }
+.iron-card-shade { position: absolute; inset: 0; background: linear-gradient(to top, var(--iron-bg), color-mix(in srgb, var(--iron-bg) 20%, transparent), transparent); }
+.iron-card-number { position: absolute; top: 20px; left: 20px; color: var(--iron-ember); }
+.iron-card-icon { position: absolute; top: 20px; right: 20px; width: 40px; height: 40px; display: grid; place-items: center; background: color-mix(in srgb, var(--iron-ember) 90%, transparent); color: var(--iron-ink); }
+.iron-card-icon .iron-icon { width: 20px; height: 20px; stroke-width: 2.5; }
+.iron-discipline-body { padding: 24px; display: flex; align-items: flex-start; justify-content: space-between; gap: 24px; }
+.iron-discipline h3, .iron-coach h3, .iron-tier h3 { margin: 0; font: 400 2rem/1 'Anton', Impact, sans-serif; text-transform: uppercase; }
+.iron-discipline-body p { max-width: 450px; margin: 8px 0 0; color: var(--iron-muted); font-size: .9rem; line-height: 1.6; }
+.iron-card-arrow { margin-top: 7px; color: var(--iron-muted); transition: color .2s ease, transform .2s ease; }
+.iron-discipline:hover .iron-card-arrow { color: var(--iron-ember); transform: translate(4px, -4px); }
+
+.iron-program-heading { display: grid; gap: 32px; margin-bottom: 56px; }
+.iron-program-heading h2 { font-size: 3rem; }
+.iron-program-list { border-top: 1px solid var(--iron-border); }
+.iron-program { display: grid; grid-template-columns: 2fr 10fr; gap: 16px; align-items: center; padding: 24px 8px; border-bottom: 1px solid var(--iron-border); transition: background .18s ease; }
+.iron-program:hover { background: color-mix(in srgb, var(--iron-surface) 50%, transparent); }
+.iron-program-code { color: var(--iron-ember); font: 400 .72rem/1.4 'JetBrains Mono', monospace; }
+.iron-program strong { font: 400 2rem/1 'Anton', Impact, sans-serif; text-transform: uppercase; transition: color .18s ease; }
+.iron-program:hover strong { color: var(--iron-ember); }
+.iron-program-description { display: none; color: var(--iron-muted); }
+.iron-program > .iron-hairline { grid-column: span 8; }
+.iron-program > .iron-icon { grid-column: span 4; justify-self: end; color: var(--iron-muted); transition: color .18s ease, transform .18s ease; }
+.iron-program:hover > .iron-icon { color: var(--iron-ember); transform: translate(4px, -4px); }
+
+.iron-coaches-title { margin: 16px 0 56px !important; }
+.iron-coach-grid { display: grid; gap: 1px; background: var(--iron-border); }
+.iron-coach { min-height: 280px; padding: 32px; display: flex; flex-direction: column; justify-content: space-between; background: var(--iron-bg); transition: background .18s ease; }
+.iron-coach:hover { background: var(--iron-surface); }
+.iron-coach > div:first-child { display: flex; align-items: flex-start; justify-content: space-between; }
+.iron-coach > div:first-child i { width: 8px; height: 8px; border-radius: 50%; background: var(--iron-ember); }
+.iron-coach .iron-hairline { margin-bottom: 12px; }
+.iron-coach h3 { font-size: 2.5rem; transition: color .18s ease; }
+.iron-coach:hover h3 { color: var(--iron-ember); }
+.iron-coach div:last-child > p:last-child { margin: 12px 0 0; font-size: .85rem; }
+
+.iron-tier-grid { display: grid; gap: 24px; }
+.iron-tier { position: relative; padding: 32px; border: 1px solid var(--iron-border); background: var(--iron-bg); }
+.iron-tier--featured { border-color: var(--iron-ember); background: var(--iron-ember); color: var(--iron-ink); }
+.iron-tier-tag { position: absolute; top: -13px; left: 32px; padding: 5px 12px; background: var(--iron-ink); color: var(--iron-ember); }
+.iron-tier-title { display: flex; align-items: center; justify-content: space-between; margin-bottom: 32px; }
+.iron-tier-title .iron-icon { width: 20px; height: 20px; color: var(--iron-ember); stroke-width: 2.5; }
+.iron-tier--featured .iron-tier-title .iron-icon { color: var(--iron-ink); }
+.iron-price { margin-bottom: 32px; display: flex; align-items: baseline; gap: 5px; }
+.iron-price strong { font: 400 3.75rem/1 'Anton', Impact, sans-serif; }
+.iron-price span { color: var(--iron-muted); font-size: .85rem; }
+.iron-tier--featured .iron-price span { color: color-mix(in srgb, var(--iron-ink) 70%, transparent); }
+.iron-tier ul { margin: 0 0 40px; padding: 0; list-style: none; display: grid; gap: 12px; }
+.iron-tier li { display: flex; align-items: flex-start; gap: 12px; font-size: .85rem; }
+.iron-tier li i { width: 16px; height: 1px; margin-top: 8px; background: var(--iron-ember); }
+.iron-tier--featured li i { background: var(--iron-ink); }
+.iron-tier-button { min-height: 52px; width: 100%; display: inline-flex; align-items: center; justify-content: center; gap: 9px; background: var(--iron-ember); color: var(--iron-ink); font-size: .7rem; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; transition: background .18s ease; }
+.iron-tier-button:hover { background: var(--iron-text); }
+.iron-tier--featured .iron-tier-button { background: var(--iron-ink); color: var(--iron-ember); }
+.iron-tier--featured .iron-tier-button:hover { background: var(--iron-bg); }
+.iron-tier-button .iron-icon { width: 16px; height: 16px; stroke-width: 2.5; }
+
+.iron-visit { padding-block: 80px; display: grid; gap: 48px; align-items: center; }
+.iron-visit .iron-hairline { margin-bottom: 16px; }
+.iron-visit h2 { font-size: 3rem; }
+.iron-visit h2 em { color: var(--iron-ember); font-style: normal; }
+.iron-visit-copy { max-width: 450px; margin: 32px 0 0; color: var(--iron-muted); font-size: 1.05rem; line-height: 1.65; }
+.iron-contact-list { margin-top: 40px; display: grid; gap: 16px; }
+.iron-contact-list p { margin: 0; display: flex; align-items: center; gap: 16px; }
+.iron-contact-list .iron-icon { width: 20px; height: 20px; color: var(--iron-ember); }
+.iron-trial-form { padding: 32px; border: 1px solid var(--iron-border); background: var(--iron-surface); }
+.iron-trial-form > p { margin-bottom: 24px; }
+.iron-trial-form label { display: block; margin-top: 20px; color: var(--iron-muted); font: 500 .7rem/1.4 'JetBrains Mono', monospace; letter-spacing: .28em; text-transform: uppercase; }
+.iron-trial-form input, .iron-trial-form select { width: 100%; margin-top: 8px; padding: 12px 0; border: 0; border-bottom: 1px solid var(--iron-border); border-radius: 0; outline: 0; background: transparent; color: var(--iron-text); font: 400 1rem/1.4 'Inter', sans-serif; text-transform: none; letter-spacing: 0; transition: border-color .18s ease; }
+.iron-trial-form input:focus, .iron-trial-form select:focus { border-color: var(--iron-ember); }
+.iron-trial-form input::placeholder { color: var(--iron-muted); }
+.iron-trial-form option { background: var(--iron-bg); color: var(--iron-text); }
+.iron-trial-form button { width: 100%; min-height: 52px; margin-top: 36px; display: inline-flex; align-items: center; justify-content: center; gap: 9px; border: 0; border-radius: 0; background: var(--iron-ember); color: var(--iron-ink); font-size: .72rem; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; cursor: pointer; transition: background .18s ease; }
+.iron-trial-form button:hover { background: var(--iron-text); }
+.iron-trial-form button .iron-icon { width: 16px; height: 16px; stroke-width: 2.5; }
+
+.iron-footer { padding: 56px 0; border-top: 1px solid var(--iron-border); }
+.iron-footer-grid { display: grid; gap: 32px; align-items: start; }
+.iron-footer-grid > div:first-child > p { max-width: 670px; margin: 16px 0 0; font: 400 2.25rem/.9 'Anton', Impact, sans-serif; text-transform: uppercase; }
+.iron-footer-grid h4 { margin: 0 0 16px; }
+.iron-footer-grid > div:not(:first-child) { display: flex; flex-direction: column; gap: 8px; }
+.iron-footer-grid > div:not(:first-child) a { color: var(--iron-muted); font-size: .85rem; }
+.iron-footer-grid > div:not(:first-child) a:hover { color: var(--iron-text); }
+.iron-footer-base { margin-top: 56px; padding-top: 24px; border-top: 1px solid var(--iron-border); display: flex; flex-wrap: wrap; justify-content: space-between; gap: 16px; }
+
+@media (min-width: 768px) {
+  .iron-wrap { width: min(1600px, calc(100% - 80px)); }
+  .iron-nav-links { display: flex; }
+  .iron-hero-content { padding-bottom: 96px; }
+  .iron-hero h1 { font-size: 13vw; }
+  .iron-hero-bottom { margin-top: 56px; grid-template-columns: 2fr 1fr; gap: 64px; }
+  .iron-hero-bottom > p { font-size: 1.1rem; }
+  .iron-hero-actions .iron-button:first-child { flex: 0 0 auto; }
+  .iron-marquee span { font-size: 3.75rem; }
+  .iron-manifesto { padding-block: 160px; grid-template-columns: repeat(12, 1fr); }
+  .iron-manifesto > div:first-child { grid-column: span 4; }
+  .iron-manifesto > div:last-child { grid-column: span 8; }
+  .iron-manifesto h2, .iron-program-heading h2 { font-size: 4.5rem; }
+  .iron-section-inner { padding-block: 128px; }
+  .iron-section-heading h2, .iron-coaches-title { font-size: 5rem; }
+  .iron-discipline-grid { grid-template-columns: repeat(2, 1fr); gap: 40px; }
+  .iron-discipline-body { padding: 32px; }
+  .iron-discipline h3 { font-size: 2.5rem; }
+  .iron-program-heading { grid-template-columns: repeat(12, 1fr); }
+  .iron-program-heading p { grid-column: span 4; }
+  .iron-program-heading h2 { grid-column: span 8; }
+  .iron-program { grid-template-columns: repeat(12, 1fr); padding-block: 32px; }
+  .iron-program-code { grid-column: span 1; }
+  .iron-program strong { grid-column: span 4; font-size: 3rem; }
+  .iron-program-description { display: block; grid-column: span 4; }
+  .iron-program > .iron-hairline { grid-column: span 2; }
+  .iron-program > .iron-icon { grid-column: span 1; }
+  .iron-coach-grid, .iron-tier-grid { grid-template-columns: repeat(3, 1fr); }
+  .iron-coach { padding: 40px; }
+  .iron-coach h3 { font-size: 3rem; }
+  .iron-tier { padding: 40px; }
+  .iron-price strong { font-size: 4.5rem; }
+  .iron-visit { padding-block: 128px; grid-template-columns: repeat(2, 1fr); gap: 80px; }
+  .iron-visit h2 { font-size: 5rem; }
+  .iron-trial-form { padding: 40px; }
+  .iron-footer-grid { grid-template-columns: repeat(12, 1fr); }
+  .iron-footer-grid > div:first-child { grid-column: span 6; }
+  .iron-footer-grid > div:not(:first-child) { grid-column: span 3; }
+  .iron-footer-grid > div:first-child > p { font-size: 3.75rem; }
+}
+
+@media (min-width: 1024px) { .iron-scroll-rail { display: flex; } }
+@media (max-width: 560px) {
+  .iron-wrap { width: min(100% - 32px, 1600px); }
+  .iron-nav-inner { gap: 12px; }
+  .iron-button--compact { padding-inline: 12px; font-size: .62rem; }
+  .iron-hero h1 { font-size: 19vw; }
+  .iron-hero-actions { flex-direction: column; }
+  .iron-section-heading--split { align-items: flex-start; flex-direction: column; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .iron-marquee-track { animation: none; }
+  .ironhaus-page *, .ironhaus-page *::before, .ironhaus-page *::after { transition-duration: .01ms !important; }
+}
