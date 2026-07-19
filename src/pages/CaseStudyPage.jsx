@@ -63,7 +63,13 @@ export default function CaseStudyPage() {
 
   if (!study) return <NotFoundPage />
 
-  const sections = caseStudySections
+  const screenshotAvailability = {
+    'desktop-screenshot': study.screenshots.firstDesktop,
+    'mobile-screenshot': study.screenshots.firstMobile,
+    'corrected-desktop': study.screenshots.correctedDesktop,
+    'corrected-mobile': study.screenshots.correctedMobile,
+  }
+  const sections = caseStudySections.filter((section) => !(section.id in screenshotAvailability) || Boolean(screenshotAvailability[section.id]))
   const sectionNumber = (id) => String(sections.findIndex((section) => section.id === id) + 1).padStart(2, '0')
 
   return (
@@ -115,29 +121,29 @@ export default function CaseStudyPage() {
             <OutputSummary output={study.firstOutput} />
           </SectionContainer>
 
-          <SectionContainer id="desktop-screenshot" number={sectionNumber('desktop-screenshot')} eyebrow="Evidence · Desktop" title="Desktop Screenshot">
-            <ScreenshotCard
-              src={study.screenshots.firstDesktop}
-              alt={`${study.name} first website output on desktop`}
-              placeholder="Desktop view not included in this review"
-              caption="First output on desktop"
-              screenSize={study.screenSizes.desktop}
-            />
-          </SectionContainer>
-
-          <SectionContainer id="mobile-screenshot" number={sectionNumber('mobile-screenshot')} eyebrow="Evidence · Mobile" title="Mobile Screenshot">
-            <div className="mobile-shot-wrap">
+          {study.screenshots.firstDesktop && (
+            <SectionContainer id="desktop-screenshot" number={sectionNumber('desktop-screenshot')} eyebrow="Evidence · Desktop" title="Desktop Screenshot">
               <ScreenshotCard
-                src={study.screenshots.firstMobile}
-                alt={`${study.name} first website output on mobile`}
-                placeholder="Initial mobile view not available"
-                caption="First output on mobile"
-                screenSize={study.screenSizes.mobile}
-                variant="mobile"
+                src={study.screenshots.firstDesktop}
+                alt={`${study.name} first website output on desktop`}
+                caption="First output on desktop"
               />
-              <div className="mobile-note"><span>Why mobile matters</span><p>Small screens reveal ordering, overflow, touch-target, and navigation issues that may not appear in the desktop layout.</p></div>
-            </div>
-          </SectionContainer>
+            </SectionContainer>
+          )}
+
+          {study.screenshots.firstMobile && (
+            <SectionContainer id="mobile-screenshot" number={sectionNumber('mobile-screenshot')} eyebrow="Evidence · Mobile" title="Mobile Screenshot">
+              <div className="mobile-shot-wrap">
+                <ScreenshotCard
+                  src={study.screenshots.firstMobile}
+                  alt={`${study.name} first website output on mobile`}
+                  caption="First output on mobile"
+                  variant="mobile"
+                />
+                <div className="mobile-note"><span>Why mobile matters</span><p>Small screens reveal ordering, overflow, touch-target, and navigation issues that may not appear in the desktop layout.</p></div>
+              </div>
+            </SectionContainer>
+          )}
 
           <SectionContainer id="problems" number={sectionNumber('problems')} eyebrow="Critical review" title="Owner Observations" intro="The design and usability issues identified during the review." className="case-section--problems">
             <ProblemsList problems={study.problems} />
@@ -151,29 +157,29 @@ export default function CaseStudyPage() {
             <OutputSummary output={study.correctedOutput} corrected />
           </SectionContainer>
 
-          <SectionContainer id="corrected-desktop" number={sectionNumber('corrected-desktop')} eyebrow="Evidence · Desktop" title="Corrected Desktop Screenshot">
-            <ScreenshotCard
-              src={study.screenshots.correctedDesktop}
-              alt={`${study.name} corrected website output on desktop`}
-              placeholder="Revised desktop view not included in this review"
-              caption="Corrected output on desktop"
-              screenSize={study.screenSizes.desktop}
-            />
-          </SectionContainer>
-
-          <SectionContainer id="corrected-mobile" number={sectionNumber('corrected-mobile')} eyebrow="Evidence · Mobile" title="Corrected Mobile Screenshot">
-            <div className="mobile-shot-wrap">
+          {study.screenshots.correctedDesktop && (
+            <SectionContainer id="corrected-desktop" number={sectionNumber('corrected-desktop')} eyebrow="Evidence · Desktop" title="Corrected Desktop Screenshot">
               <ScreenshotCard
-                src={study.screenshots.correctedMobile}
-                alt={`${study.name} corrected website output on mobile`}
-                placeholder="Revised mobile view not available"
-                caption="Corrected output on mobile"
-                screenSize={study.screenSizes.mobile}
-                variant="mobile"
+                src={study.screenshots.correctedDesktop}
+                alt={`${study.name} corrected website output on desktop`}
+                caption="Corrected output on desktop"
               />
-              <div className="mobile-note mobile-note--positive"><span>Correction result</span><p>The revised layout keeps the content, controls, and navigation clear and usable at 390px.</p></div>
-            </div>
-          </SectionContainer>
+            </SectionContainer>
+          )}
+
+          {study.screenshots.correctedMobile && (
+            <SectionContainer id="corrected-mobile" number={sectionNumber('corrected-mobile')} eyebrow="Evidence · Mobile" title="Corrected Mobile Screenshot">
+              <div className="mobile-shot-wrap">
+                <ScreenshotCard
+                  src={study.screenshots.correctedMobile}
+                  alt={`${study.name} corrected website output on mobile`}
+                  caption="Corrected output on mobile"
+                  variant="mobile"
+                />
+                <div className="mobile-note mobile-note--positive"><span>Correction result</span><p>The revised layout keeps the content, controls, and navigation clear and usable on a phone screen.</p></div>
+              </div>
+            </SectionContainer>
+          )}
 
           <SectionContainer id="comparison" number={sectionNumber('comparison')} eyebrow="Evaluation" title="Final Comparison" intro="The first and corrected outputs reviewed side by side.">
             <BeforeAfterComparison study={study} />

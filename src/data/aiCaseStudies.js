@@ -1,7 +1,6 @@
 const sharedRequest = {
   title: 'Modern Gym Website',
   category: 'Fitness / Gym',
-  screenSizes: { desktop: '1440 × 900', mobile: '390 × 844 (iPhone 14)' },
 }
 
 const initialGymPrompt = `i want you to build a website for my gym i want something nice and sleek and very modern not a generic ai generated type of design do you understand use clean pictures and nice gym related icons and fonts`

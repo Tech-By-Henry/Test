@@ -151,13 +151,7 @@ svg { display: block; }
 .screenshot-media > img { width: 100%; height: 100%; object-fit: cover; object-position: top; }
 .screenshot-card { margin: 0; }
 .screenshot-card figcaption { min-height: 42px; padding-top: 13px; display: flex; justify-content: space-between; gap: 20px; color: var(--muted); font-size: .67rem; }
-.screen-size { font-family: 'DM Mono', monospace; color: #8b8c87; }
 .expand-button { position: absolute; right: 12px; bottom: 12px; width: 38px; height: 38px; display: grid; place-items: center; border: 1px solid rgba(255,255,255,.6); border-radius: 4px; color: white; background: rgba(20,20,20,.76); cursor: pointer; }
-.image-empty-state { position: relative; height: 100%; min-height: 230px; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 30px; text-align: center; background: #e9e8e3; color: #72736f; }
-.empty-grid { position: absolute; inset: 0; opacity: .45; background-image: linear-gradient(#d9d8d3 1px, transparent 1px), linear-gradient(90deg, #d9d8d3 1px, transparent 1px); background-size: 28px 28px; mask-image: radial-gradient(circle, black, transparent 70%); }
-.empty-icon { position: relative; width: 38px; height: 38px; margin-bottom: 16px; fill: none; stroke: #9d9e99; stroke-width: 1.25; stroke-linecap: round; stroke-linejoin: round; }
-.image-empty-state strong { position: relative; color: #555651; font-size: .79rem; }
-.image-empty-state span { position: relative; margin-top: 6px; font-size: .63rem; }
 .image-dialog { width: min(1180px, 92vw); max-height: 92vh; padding: 44px 16px 16px; border: 0; border-radius: 7px; background: #111; color: white; }
 .image-dialog::backdrop { background: rgba(0,0,0,.82); }
 .image-dialog button { position: absolute; top: 9px; right: 12px; min-height: 30px; border: 0; background: none; color: white; cursor: pointer; font-size: .75rem; }
@@ -226,8 +220,6 @@ svg { display: block; }
 .comparison-label span { color: #999a95; font: 400 .57rem 'DM Mono', monospace; }
 .comparison-column .browser-bar { height: 24px; }
 .comparison-column .screenshot-card figcaption { display: none; }
-.comparison-column .image-empty-state { min-height: 160px; padding: 15px; }
-.comparison-column .image-empty-state span { display: none; }
 .outcome-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px; margin-top: 40px; overflow: hidden; border: 1px solid var(--line); border-radius: 7px; background: var(--line); }
 .outcome-list, .score-card { min-height: 185px; padding: 25px; background: white; }
 .outcome-list h4, .score-card > span { margin: 0 0 18px; color: #858681; font: 500 .61rem 'DM Mono', monospace; letter-spacing: .07em; text-transform: uppercase; }
@@ -348,7 +340,6 @@ svg { display: block; }
   .outcome-list, .score-card { min-height: 160px; }
   .case-end { align-items: flex-start; flex-direction: column; gap: 22px; }
   .back-to-top { right: 15px; bottom: 15px; }
-  .image-empty-state { min-height: 180px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -356,12 +347,6 @@ svg { display: block; }
   *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; }
 }
 
-.viewport-toggle { display: inline-flex; gap: 6px; padding: 5px; border: 1px solid var(--line); border-radius: 6px; background: #f0efeb; }
-.viewport-toggle button { min-width: 105px; min-height: 48px; padding: 7px 10px; border: 0; border-radius: 4px; background: transparent; color: var(--muted); cursor: pointer; text-align: left; }
-.viewport-toggle button span, .viewport-toggle button small { display: block; }
-.viewport-toggle button span { font-size: .72rem; font-weight: 800; }
-.viewport-toggle button small { margin-top: 3px; font: 400 .58rem 'DM Mono', monospace; }
-.viewport-toggle button.is-active { background: var(--ink); color: white; }
 .comparison-note { padding: 30px; border: 1px solid var(--line); border-radius: 7px; background: white; }
 .comparison-note h3 { margin: 12px 0; font-size: 1.35rem; letter-spacing: -.035em; }
 .comparison-note p:not(.eyebrow) { margin: 0; color: var(--muted); font-size: .78rem; line-height: 1.65; }
@@ -369,8 +354,6 @@ svg { display: block; }
 .outcome-list p { margin: 0; color: var(--muted); font-size: .72rem; line-height: 1.55; }
 
 @media (max-width: 640px) {
-  .viewport-toggle { width: 100%; margin-top: 18px; }
-  .viewport-toggle button { flex: 1; min-width: 0; }
   .outcome-grid--no-score { grid-template-columns: 1fr; }
 }
 
@@ -381,14 +364,8 @@ svg { display: block; }
 .generated-title span { display: block; color: #aeb0aa; font: 500 .62rem 'DM Mono', monospace; letter-spacing: .08em; text-transform: uppercase; }
 .generated-title strong { display: block; margin-top: 3px; font-size: .88rem; }
 .generated-actions { display: flex; align-items: center; gap: 12px; }
-.generated-toolbar .viewport-toggle { background: rgba(255,255,255,.08); border-color: rgba(255,255,255,.16); }
-.generated-toolbar .viewport-toggle button { color: #c8cac4; }
-.generated-toolbar .viewport-toggle button.is-active { background: white; color: #181916; }
-.generated-stage { width: min(1440px, 100%); margin: 0 auto; transition: width .2s ease; }
-.generated-stage--mobile { width: 430px; max-width: 100%; }
+.generated-stage { width: min(1440px, 100%); margin: 0 auto; }
 .generated-device { min-height: 760px; overflow: hidden; background: #f5f4ef; border-radius: 18px; box-shadow: 0 30px 90px rgba(0,0,0,.35); }
-.generated-stage--mobile .generated-device { height: 844px; overflow-y: auto; border: 12px solid #0c0d0c; border-radius: 44px; box-shadow: 0 0 0 2px #556070, 0 28px 80px rgba(0,0,0,.45); }
-.generated-stage--mobile .generated-device::before { content: ''; position: sticky; z-index: 5; top: 0; display: block; width: 126px; height: 26px; margin: 0 auto -26px; background: #050505; border-radius: 0 0 16px 16px; }
 .gym-site { min-height: 100%; background: #f4f1ea; color: #131411; font-family: 'Manrope', Arial, sans-serif; }
 .gym-nav { min-height: 76px; display: flex; align-items: center; justify-content: space-between; padding: 0 clamp(22px, 5vw, 72px); border-bottom: 1px solid #ddd7cc; background: rgba(244,241,234,.92); }
 .gym-nav strong { font-size: 1.1rem; letter-spacing: -.03em; }
